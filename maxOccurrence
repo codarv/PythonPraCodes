@@ -1,0 +1,28 @@
+#Given an array of N integers. Find the first element that occurs K number of times. 
+from operator import indexOf
+
+K = 9
+A = [1, 7, 4, 3, 4, 8, 7, 4, 7, 7, 7, 7, 7, 7, 4, 2, 4, 4, 4, 1, 4, 4, 7]
+B = []
+
+def maxOccurrence(inList, K):
+    candidates = {}
+    maxList = []
+    for i in inList:
+        c = inList.count(i)
+        z = 0
+        if c == K:
+            candidates[i] = [inList.index(i)]
+
+    for key in candidates:
+        for r in range(K-1):   
+            candidates[key].append(inList.index(key, candidates.get(key)[r]+1))
+        maxList.append(candidates.get(key)[-1])
+
+    min = sorted(maxList)[0]
+    for key in candidates:
+        val = candidates.get(key)[-1]
+        if val == min:
+            print(str(key) + " has the first occurrence for " + str(K) + " times.")    
+
+maxOccurrence(A,K)
